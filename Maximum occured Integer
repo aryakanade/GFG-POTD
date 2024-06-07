@@ -1,0 +1,23 @@
+Maximum occured Integer
+In this GFG POTD, we are given two arrays as input, along with their respective length n and the maximum element, maxx.
+Here's a python code following the prefix sum method to this question:
+def maxOccured(self,n, l, r, maxx):
+        #we initialised a array of size maxx+2 elements, having all zero in it
+        arr = [0]*(maxx+2)
+        #for the given two arrays left and right, we increment the value of the start index and decrement the value of end index in the array initialsed in previous step
+        for i in range(n):
+            arr[l[i]] += 1
+            arr[r[i]+1] -= 1
+
+        #we calculate the prefix sum of array arr
+        for i in range(1,maxx+1):
+            arr[i] = arr[i] + arr[i-1]
+
+        #here we are returning the index of the element having maximum value
+        res = 0
+        max_count = 0
+        for i in range(1,maxx+1):
+            if arr[i] > max_count:
+                max_count = arr[i]
+                res = i
+        return res
